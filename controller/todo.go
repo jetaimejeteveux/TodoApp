@@ -5,11 +5,18 @@ import (
 	"TodoApp/model"
 	"encoding/json"
 	"fmt"
+	"github.com/gorilla/mux"
 	"io/ioutil"
 	"net/http"
-
-	"github.com/gorilla/mux"
 )
+
+//GetTodos godoc
+//@Summary Get details of all todo
+//@Tags todo
+//@Accept json
+//@Produce json
+//@Success 200 {array} Todo
+//@Router /todos [get]
 
 func GetAllTodos(w http.ResponseWriter, r *http.Request) {
 	//Connect DB
@@ -47,6 +54,15 @@ func GetAllTodos(w http.ResponseWriter, r *http.Request) {
 
 }
 
+//CreateTodo godoc
+//@Summary Create a new todo
+//@Description Create a new todo
+//@Tags todo
+//@Accept json
+//Produce json
+//@Param todo body Todo true "Create todo"
+//@Success 200 {json}
+//@Router /todos [post]
 func CreateTodo(w http.ResponseWriter, r *http.Request) {
 	//Connect DB
 	db, err := database.Connect()
@@ -77,9 +93,19 @@ func CreateTodo(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err.Error())
 		return
 	}
-	w.Write([]byte("Create Data Succrsfull..."))
+	w.Write([]byte("Create Data Succesfull..."))
 
 }
+
+// GetTodo godoc
+// @Summary get detail todo
+// @Description get todo
+// @Tags todos
+// @Produce json
+// @Accept json
+// @Success 200 {object} Todo
+// @Router /todo/{todoId} [get]
+// @Param todoId path int true "id todo"
 
 func GetTodo(w http.ResponseWriter, r *http.Request) {
 	// Database Connection
@@ -120,6 +146,15 @@ func GetTodo(w http.ResponseWriter, r *http.Request) {
 	w.Write(res)
 }
 
+//UpdateTodo godoc
+//@Summary Update a todo
+//@Description Update todo
+//@Tags todo
+//@Accept json
+//Produce json
+//@Param todo body Todo true "Update todo"
+//@Success 200 {json}
+//@Router /todo [put]
 func UpdateTodo(w http.ResponseWriter, r *http.Request) {
 	// Database Connection
 	w.Header().Set("Content-Type", "application/json")
@@ -157,6 +192,11 @@ func UpdateTodo(w http.ResponseWriter, r *http.Request) {
 
 }
 
+//DeleteTodo godoc
+//@Summary Delete todo
+//@Description Delete todo
+//@Success 200 {json}
+//@Router /todos [delete]
 func DeleteTodo(w http.ResponseWriter, r *http.Request) {
 	// Database Connection
 	w.Header().Set("Content-Type", "application/json")
