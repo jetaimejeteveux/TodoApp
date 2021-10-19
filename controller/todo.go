@@ -27,7 +27,6 @@ func GetAllTodos(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer db.Close()
-
 	//Exec Query Real All Todo
 	rows, err := db.Query("select * from todo")
 	if err != nil {
