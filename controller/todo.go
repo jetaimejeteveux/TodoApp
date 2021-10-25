@@ -15,7 +15,7 @@ import (
 //@Tags todo
 //@Accept json
 //@Produce json
-//@Success 200 {array} Todo
+//@Success 200 {array} model.Todo
 //@Router /todos [get]
 
 func GetAllTodos(w http.ResponseWriter, r *http.Request) {
@@ -59,8 +59,8 @@ func GetAllTodos(w http.ResponseWriter, r *http.Request) {
 //@Tags todo
 //@Accept json
 //Produce json
-//@Param todo body Todo true "Create todo"
-//@Success 200 {json}
+//@Param todo body model.Todo true "Create todos"
+//@Success 200 {object} model.Todo
 //@Router /todos [post]
 func CreateTodo(w http.ResponseWriter, r *http.Request) {
 	//Connect DB
@@ -99,10 +99,11 @@ func CreateTodo(w http.ResponseWriter, r *http.Request) {
 // GetTodo godoc
 // @Summary get detail todo
 // @Description get todo
-// @Tags todos
+// @Tags todo
 // @Produce json
 // @Accept json
-// @Success 200 {object} Todo
+// @Success 200 {object} model.Todo
+// @Failure 400 {string} string "error"
 // @Router /todo/{todoId} [get]
 // @Param todoId path int true "id todo"
 
@@ -151,11 +152,12 @@ func GetTodo(w http.ResponseWriter, r *http.Request) {
 //@Tags todo
 //@Accept json
 //Produce json
-//@Param todo body Todo true "Update todo"
-//@Success 200 {json}
+//@Param todo body model.Todo true "Update todos"
+//@Success 200 {object} model.Todo
+//@Failure 400 {string} string "error"
 //@Router /todo [put]
 func UpdateTodo(w http.ResponseWriter, r *http.Request) {
-	// Database Connection
+	// Databswagase Connection
 	w.Header().Set("Content-Type", "application/json")
 	db, err := database.Connect()
 	if err != nil {
@@ -194,8 +196,9 @@ func UpdateTodo(w http.ResponseWriter, r *http.Request) {
 //DeleteTodo godoc
 //@Summary Delete todo
 //@Description Delete todo
-//@Success 200 {json}
-//@Router /todos [delete]
+//@Success 200 {string} string "ok"
+//@Failure 400 {string} string "error"
+//@Router /todo [delete]
 func DeleteTodo(w http.ResponseWriter, r *http.Request) {
 	// Database Connection
 	w.Header().Set("Content-Type", "application/json")

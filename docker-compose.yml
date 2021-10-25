@@ -4,8 +4,10 @@ services:
     container_name: "todo-db"
     image: mysql
     restart: always
+    command: --default-authentication-plugin=mysql_native_password
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: todo_db
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: todoDB
+
     ports:
-      - "3301:3306"
+      - "3306:3306"

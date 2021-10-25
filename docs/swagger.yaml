@@ -1,0 +1,75 @@
+basePath: /
+definitions:
+  model.Todo:
+    properties:
+      complete:
+        type: boolean
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+info:
+  contact:
+    name: API Support
+  description: This is a service to manage todo list
+  title: Todo API
+  version: "1.0"
+paths:
+  /todo:
+    delete:
+      description: Delete todo
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+        "400":
+          description: error
+          schema:
+            type: string
+      summary: Delete todo
+    put:
+      consumes:
+      - application/json
+      description: Update todo
+      parameters:
+      - description: Update todos
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/model.Todo'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Todo'
+        "400":
+          description: error
+          schema:
+            type: string
+      summary: Update a todo
+      tags:
+      - todo
+  /todos:
+    post:
+      consumes:
+      - application/json
+      description: Create a new todo
+      parameters:
+      - description: Create todos
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/model.Todo'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Todo'
+      summary: Create a new todo
+      tags:
+      - todo
+swagger: "2.0"
