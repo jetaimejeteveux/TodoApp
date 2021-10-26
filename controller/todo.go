@@ -5,10 +5,13 @@ import (
 	"TodoApp/model"
 	"encoding/json"
 	"fmt"
-	"github.com/gorilla/mux"
-	"io/ioutil"
 	"net/http"
+
+	"github.com/gorilla/mux"
+	"github.com/gorilla/schema"
 )
+
+var decoder = schema.NewDecoder()
 
 //GetTodos godoc
 //@Summary Get details of all todo
@@ -71,16 +74,25 @@ func CreateTodo(w http.ResponseWriter, r *http.Request) {
 	}
 	defer db.Close()
 
-	//Read Request Body
-	body, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		fmt.Println(err.Error())
-		return
-	}
+	// //Read Request Body
+	// body, err := ioutil.ReadAll(r.Body)
+	// if err != nil {
+	// 	fmt.Println(err.Error())
+	// 	return
+	// }
 
-	//Merubah Request Body to struct
+	// //Merubah Request Body to struct
+	// var todo model.Todo
+	// err = json.Unmarshal(body, &todo)
+	// if err != nil {
+	// 	fmt.Println(err.Error())
+	// 	return
+	// }
+
+	//Read Parameter
 	var todo model.Todo
-	err = json.Unmarshal(body, &todo)
+
+	err = decoder.Decode(&todo, r.URL.Query())
 	if err != nil {
 		fmt.Println(err.Error())
 		return
@@ -170,14 +182,23 @@ func UpdateTodo(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	paramId := params["id"]
 
-	//Read Req Body
-	body, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		fmt.Println(err.Error())
-		return
-	}
+	// //Read Req Body
+	// body, err := ioutil.ReadAll(r.Body)
+	// if err != nil {
+	// 	fmt.Println(err.Error())
+	// 	return
+	// }
+	// var todo model.Todo
+	// err = json.Unmarshal(body, &todo)
+	// if err != nil {
+	// 	fmt.Println(err.Error())
+	// 	return
+	// }
+
+	//Read Parameter
 	var todo model.Todo
-	err = json.Unmarshal(body, &todo)
+
+	err = decoder.Decode(&todo, r.URL.Query())
 	if err != nil {
 		fmt.Println(err.Error())
 		return
