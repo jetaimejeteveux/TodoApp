@@ -13,13 +13,13 @@ import (
 
 var decoder = schema.NewDecoder()
 
-//GetTodos godoc
-//@Summary Get details of all todo
-//@Tags todo
-//@Accept json
-//@Produce json
-//@Success 200 {array} model.Todo
-//@Router /todos [get]
+// GetTodos godoc
+// @Summary Get details of all todo
+// @Tags todo
+// @Accept json
+// @Produce json
+// @Success 200 {array} model.Todo
+// @Router /todos [get]
 
 func GetAllTodos(w http.ResponseWriter, r *http.Request) {
 	//Connect DB
@@ -30,6 +30,7 @@ func GetAllTodos(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer db.Close()
+
 	//Exec Query Real All Todo
 	rows, err := db.Query("select * from todo")
 	if err != nil {
@@ -56,15 +57,15 @@ func GetAllTodos(w http.ResponseWriter, r *http.Request) {
 
 }
 
-//CreateTodo godoc
-//@Summary Create a new todo
-//@Description Create a new todo
-//@Tags todo
-//@Accept json
-//Produce json
-//@Param todo body model.Todo true "Create todos"
-//@Success 200 {object} model.Todo
-//@Router /todos [post]
+// CreateTodo godoc
+// @Summary Create a new todo
+// @Description Create a new todo
+// @Tags todo
+// @Accept json
+// Produce json
+// @Param todo body model.Todo true "Create todos"
+// @Success 200 {object} model.Todo
+// @Router /todos [post]
 func CreateTodo(w http.ResponseWriter, r *http.Request) {
 	//Connect DB
 	db, err := database.Connect()
@@ -217,6 +218,7 @@ func UpdateTodo(w http.ResponseWriter, r *http.Request) {
 //DeleteTodo godoc
 //@Summary Delete todo
 //@Description Delete todo
+//@Tags todo
 //@Success 200 {string} string "ok"
 //@Failure 400 {string} string "error"
 //@Router /todo [delete]

@@ -1,14 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "This is a service to manage todo list",
-        "title": "Todo API",
-        "contact": {
-            "name": "API Support"
-        },
-        "version": "1.0"
+        "contact": {}
     },
-    "basePath": "/",
     "paths": {
         "/todo": {
             "put": {
@@ -48,6 +42,9 @@
             },
             "delete": {
                 "description": "Delete todo",
+                "tags": [
+                    "todo"
+                ],
                 "summary": "Delete todo",
                 "responses": {
                     "200": {

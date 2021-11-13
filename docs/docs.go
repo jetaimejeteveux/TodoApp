@@ -17,9 +17,7 @@ var doc = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "contact": {
-            "name": "API Support"
-        },
+        "contact": {},
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
@@ -63,6 +61,9 @@ var doc = `{
             },
             "delete": {
                 "description": "Delete todo",
+                "tags": [
+                    "todo"
+                ],
                 "summary": "Delete todo",
                 "responses": {
                     "200": {
@@ -141,12 +142,12 @@ type swaggerInfo struct {
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = swaggerInfo{
-	Version:     "1.0",
+	Version:     "",
 	Host:        "",
-	BasePath:    "/",
+	BasePath:    "",
 	Schemes:     []string{},
-	Title:       "Todo API",
-	Description: "This is a service to manage todo list",
+	Title:       "",
+	Description: "",
 }
 
 type s struct{}
@@ -181,5 +182,5 @@ func (s *s) ReadDoc() string {
 }
 
 func init() {
-	swag.Register(swag.Name, &s{})
+	swag.Register("swagger", &s{})
 }

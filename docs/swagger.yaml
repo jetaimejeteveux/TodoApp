@@ -1,4 +1,3 @@
-basePath: /
 definitions:
   model.Todo:
     properties:
@@ -10,11 +9,7 @@ definitions:
         type: string
     type: object
 info:
-  contact:
-    name: API Support
-  description: This is a service to manage todo list
-  title: Todo API
-  version: "1.0"
+  contact: {}
 paths:
   /todo:
     delete:
@@ -29,6 +24,8 @@ paths:
           schema:
             type: string
       summary: Delete todo
+      tags:
+      - todo
     put:
       consumes:
       - application/json
