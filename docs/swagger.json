@@ -1,93 +1,184 @@
 {
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "description": "This is a API for Todos",
+        "title": "Todo API",
+        "contact": {},
+        "version": "1.0"
     },
+    "host": "localhost:8080",
+    "basePath": "/todos",
     "paths": {
-        "/todo": {
-            "put": {
-                "description": "Update todo",
+        "/todos": {
+            "get": {
+                "description": "Get details of all Todos",
                 "consumes": [
                     "application/json"
                 ],
-                "tags": [
-                    "todo"
+                "produces": [
+                    "application/json"
                 ],
-                "summary": "Update a todo",
+                "tags": [
+                    "Todos"
+                ],
+                "summary": "Get details of all Todos",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Todo"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new Todos",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Todos"
+                ],
+                "summary": "Create a new Todo",
                 "parameters": [
                     {
-                        "description": "Update todos",
-                        "name": "todo",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.Todo"
-                        }
+                        "type": "string",
+                        "description": "name for new Todo",
+                        "name": "name",
+                        "in": "query",
+                        "required": true
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/model.Todo"
-                        }
-                    },
-                    "400": {
-                        "description": "error",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Delete todo",
-                "tags": [
-                    "todo"
-                ],
-                "summary": "Delete todo",
-                "responses": {
-                    "200": {
-                        "description": "ok",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    "400": {
-                        "description": "error",
-                        "schema": {
-                            "type": "string"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Todo"
+                            }
                         }
                     }
                 }
             }
         },
-        "/todos": {
-            "post": {
-                "description": "Create a new todo",
+        "/todos/{id}": {
+            "get": {
+                "description": "Get details of Todo by ID",
                 "consumes": [
                     "application/json"
                 ],
-                "tags": [
-                    "todo"
+                "produces": [
+                    "application/json"
                 ],
-                "summary": "Create a new todo",
+                "tags": [
+                    "Todos"
+                ],
+                "summary": "Get details of Todos",
                 "parameters": [
                     {
-                        "description": "Create todos",
-                        "name": "todo",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.Todo"
-                        }
+                        "type": "integer",
+                        "description": "id for get todo",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/model.Todo"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Todo"
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update Todo by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Todos"
+                ],
+                "summary": "Update Todo",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id for update todo",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "boolean",
+                        "name": "complete",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "name",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Todo"
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete Todo by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Todos"
+                ],
+                "summary": "Delete Todo",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id for delete todo",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.Todo"
+                            }
                         }
                     }
                 }

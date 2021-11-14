@@ -6,12 +6,12 @@ import (
 	"net/http"
 )
 
-//@title Todo API
-//@version 1.0
-//@description This is a service to manage todo list
-//@contact.name API Support
-//host localhost:8080
-//@BasePath /
+// @title Todo API
+// @version 1.0
+// @description This is a API for Todos
+// @host localhost:8080
+// @BasePath /todos
+
 func main() {
 	err := http.ListenAndServe(":8080", router.StartApplication())
 	if err != nil {
@@ -19,4 +19,5 @@ func main() {
 	} else {
 		fmt.Println("Listen Server at http://localhost:8080")
 	}
+
 }

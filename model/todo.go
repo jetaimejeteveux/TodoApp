@@ -1,6 +1,6 @@
 package model
 
-//Todo represents the model for todo list
+//swagger
 type Todo struct {
 	Id       int    `json:"id" schema:"id"`
 	Name     string `json:"name" schema:"name`

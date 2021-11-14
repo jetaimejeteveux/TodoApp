@@ -14,13 +14,13 @@ import (
 var decoder = schema.NewDecoder()
 
 // GetTodos godoc
-// @Summary Get details of all todo
-// @Tags todo
+// @Summary Get details of all Todos
+// @Description Get details of all Todos
+// @Tags Todos
 // @Accept json
 // @Produce json
 // @Success 200 {array} model.Todo
 // @Router /todos [get]
-
 func GetAllTodos(w http.ResponseWriter, r *http.Request) {
 	//Connect DB
 	w.Header().Set("Content-Type", "application/json")
@@ -57,15 +57,15 @@ func GetAllTodos(w http.ResponseWriter, r *http.Request) {
 
 }
 
-// CreateTodo godoc
-// @Summary Create a new todo
-// @Description Create a new todo
-// @Tags todo
+// CreateTodos godoc
+// @Summary Create a new Todo
+// @Description Create a new Todos
+// @Tags Todos
 // @Accept json
-// Produce json
-// @Param todo body model.Todo true "Create todos"
-// @Success 200 {object} model.Todo
+// @Produce json
+// @Success 200 {array} model.Todo
 // @Router /todos [post]
+// @Param name query string true "name for new Todo"
 func CreateTodo(w http.ResponseWriter, r *http.Request) {
 	//Connect DB
 	db, err := database.Connect()
@@ -74,21 +74,6 @@ func CreateTodo(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	defer db.Close()
-
-	// //Read Request Body
-	// body, err := ioutil.ReadAll(r.Body)
-	// if err != nil {
-	// 	fmt.Println(err.Error())
-	// 	return
-	// }
-
-	// //Merubah Request Body to struct
-	// var todo model.Todo
-	// err = json.Unmarshal(body, &todo)
-	// if err != nil {
-	// 	fmt.Println(err.Error())
-	// 	return
-	// }
 
 	//Read Parameter
 	var todo model.Todo
@@ -105,21 +90,19 @@ func CreateTodo(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err.Error())
 		return
 	}
-	w.Write([]byte("Create Data Succesfull..."))
+	w.Write([]byte("Create Data Succrsfull..."))
 
 }
 
 // GetTodo godoc
-// @Summary get detail todo
-// @Description get todo
-// @Tags todo
-// @Produce json
+// @Summary Get details of Todos
+// @Description Get details of Todo by ID
+// @Tags Todos
 // @Accept json
-// @Success 200 {object} model.Todo
-// @Failure 400 {string} string "error"
-// @Router /todo/{todoId} [get]
-// @Param todoId path int true "id todo"
-
+// @Produce json
+// @Success 200 {array} model.Todo
+// @Router /todos/{id} [get]
+// @Param id path int true "id for get todo"
 func GetTodo(w http.ResponseWriter, r *http.Request) {
 	// Database Connection
 	w.Header().Set("Content-Type", "application/json")
@@ -159,18 +142,19 @@ func GetTodo(w http.ResponseWriter, r *http.Request) {
 	w.Write(res)
 }
 
-//UpdateTodo godoc
-//@Summary Update a todo
-//@Description Update todo
-//@Tags todo
-//@Accept json
-//Produce json
-//@Param todo body model.Todo true "Update todos"
-//@Success 200 {object} model.Todo
-//@Failure 400 {string} string "error"
-//@Router /todo [put]
+// UpdateTodo godoc
+// @Summary Update Todo
+// @Description Update Todo by ID
+// @Tags Todos
+// @Accept json
+// @Produce json
+// @Success 200 {array} model.Todo
+// @Router /todos/{id} [put]
+// @Param id path int true "id for update todo"
+// @Param name query model.Todo true "Name for update todo"
+// // @Param complete query bool true "Status Complete for update todo"
 func UpdateTodo(w http.ResponseWriter, r *http.Request) {
-	// Databswagase Connection
+	// Database Connection
 	w.Header().Set("Content-Type", "application/json")
 	db, err := database.Connect()
 	if err != nil {
@@ -183,20 +167,6 @@ func UpdateTodo(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	paramId := params["id"]
 
-	// //Read Req Body
-	// body, err := ioutil.ReadAll(r.Body)
-	// if err != nil {
-	// 	fmt.Println(err.Error())
-	// 	return
-	// }
-	// var todo model.Todo
-	// err = json.Unmarshal(body, &todo)
-	// if err != nil {
-	// 	fmt.Println(err.Error())
-	// 	return
-	// }
-
-	//Read Parameter
 	var todo model.Todo
 
 	err = decoder.Decode(&todo, r.URL.Query())
@@ -215,13 +185,15 @@ func UpdateTodo(w http.ResponseWriter, r *http.Request) {
 
 }
 
-//DeleteTodo godoc
-//@Summary Delete todo
-//@Description Delete todo
-//@Tags todo
-//@Success 200 {string} string "ok"
-//@Failure 400 {string} string "error"
-//@Router /todo [delete]
+// DeleteTodo godoc
+// @Summary Delete Todo
+// @Description Delete Todo by ID
+// @Tags Todos
+// @Accept json
+// @Produce json
+// @Success 200 {array} model.Todo
+// @Router /todos/{id} [delete]
+// @Param id path int true "id for delete todo"
 func DeleteTodo(w http.ResponseWriter, r *http.Request) {
 	// Database Connection
 	w.Header().Set("Content-Type", "application/json")

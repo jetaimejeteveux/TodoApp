@@ -1,3 +1,4 @@
+basePath: /todos
 definitions:
   model.Todo:
     properties:
@@ -8,65 +9,126 @@ definitions:
       name:
         type: string
     type: object
+host: localhost:8080
 info:
   contact: {}
+  description: This is a API for Todos
+  title: Todo API
+  version: "1.0"
 paths:
-  /todo:
-    delete:
-      description: Delete todo
-      responses:
-        "200":
-          description: ok
-          schema:
-            type: string
-        "400":
-          description: error
-          schema:
-            type: string
-      summary: Delete todo
-      tags:
-      - todo
-    put:
+  /todos:
+    get:
       consumes:
       - application/json
-      description: Update todo
-      parameters:
-      - description: Update todos
-        in: body
-        name: todo
-        required: true
-        schema:
-          $ref: '#/definitions/model.Todo'
+      description: Get details of all Todos
+      produces:
+      - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/model.Todo'
-        "400":
-          description: error
-          schema:
-            type: string
-      summary: Update a todo
+            items:
+              $ref: '#/definitions/model.Todo'
+            type: array
+      summary: Get details of all Todos
       tags:
-      - todo
-  /todos:
+      - Todos
     post:
       consumes:
       - application/json
-      description: Create a new todo
+      description: Create a new Todos
       parameters:
-      - description: Create todos
-        in: body
-        name: todo
+      - description: name for new Todo
+        in: query
+        name: name
         required: true
-        schema:
-          $ref: '#/definitions/model.Todo'
+        type: string
+      produces:
+      - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/model.Todo'
-      summary: Create a new todo
+            items:
+              $ref: '#/definitions/model.Todo'
+            type: array
+      summary: Create a new Todo
       tags:
-      - todo
+      - Todos
+  /todos/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete Todo by ID
+      parameters:
+      - description: id for delete todo
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Todo'
+            type: array
+      summary: Delete Todo
+      tags:
+      - Todos
+    get:
+      consumes:
+      - application/json
+      description: Get details of Todo by ID
+      parameters:
+      - description: id for get todo
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Todo'
+            type: array
+      summary: Get details of Todos
+      tags:
+      - Todos
+    put:
+      consumes:
+      - application/json
+      description: Update Todo by ID
+      parameters:
+      - description: id for update todo
+        in: path
+        name: id
+        required: true
+        type: integer
+      - in: query
+        name: complete
+        type: boolean
+      - in: query
+        name: id
+        type: integer
+      - in: query
+        name: name
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Todo'
+            type: array
+      summary: Update Todo
+      tags:
+      - Todos
 swagger: "2.0"
