@@ -1,4 +1,4 @@
-basePath: /todos
+basePath: /
 definitions:
   model.Todo:
     properties:

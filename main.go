@@ -10,7 +10,7 @@ import (
 // @version 1.0
 // @description This is a API for Todos
 // @host localhost:8080
-// @BasePath /todos
+// @BasePath /
 
 func main() {
 	err := http.ListenAndServe(":8080", router.StartApplication())

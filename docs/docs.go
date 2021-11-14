@@ -230,7 +230,7 @@ type swaggerInfo struct {
 var SwaggerInfo = swaggerInfo{
 	Version:     "1.0",
 	Host:        "localhost:8080",
-	BasePath:    "/todos",
+	BasePath:    "/",
 	Schemes:     []string{},
 	Title:       "Todo API",
 	Description: "This is a API for Todos",
